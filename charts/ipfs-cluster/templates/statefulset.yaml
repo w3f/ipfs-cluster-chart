@@ -79,12 +79,12 @@ spec:
             - name: BOOTSTRAP_PEER_PRIV_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "ipfs-cluster.ipfs-cluster.secretName" . }}
+                  name: {{ include "ipfs-cluster.secretName" . }}
                   key: bootstrap-peer-priv-key
             - name: CLUSTER_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "ipfs-cluster.ipfs-cluster.secretName" . }}
+                  name: {{ include "ipfs-cluster.secretName" . }}
                   key: cluster-secret
             - name: CLUSTER_MONITOR_PING_INTERVAL
               value: "3m"
