@@ -49,7 +49,7 @@ workflows:
       - publishChart:
           context: github-bot
           requires:
-            - buildImage
+            - integrationTests
           filters:
             branches:
               ignore: /.*/
