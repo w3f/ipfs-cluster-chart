@@ -12,5 +12,7 @@ bootstrapPeerId: id
 
 replicaCount: 1
 
-clusterStorage: 5Gi
-ipfsStorage: 200Gi
+persistance:
+  enabled: true
+  clusterStorage: 5Gi
+  ipfsStorage: 200Gi

@@ -117,6 +117,12 @@ spec:
         - name: configure-script
           configMap:
             name: {{ include "ipfs-cluster.configmapBootstrapName" . }}     
+        {{ if ne .Values.persistance.enabled true }}    
+        - name: cluster-storage
+          emptyDir: {}
+        - name: ipfs-storage
+          emptyDir: {}  
+        {{ else }}
   volumeClaimTemplates:  
     - metadata:
         name: cluster-storage
@@ -125,7 +131,7 @@ spec:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: {{ .Values.clusterStorage }}
+            storage: {{ .Values.persistance.clusterStorage }}
     - metadata:
         name: ipfs-storage
       spec:
@@ -133,4 +139,5 @@ spec:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: {{ .Values.ipfsStorage }}
+            storage: {{ .Values.persistance.ipfsStorage }}
+        {{ end }}    
