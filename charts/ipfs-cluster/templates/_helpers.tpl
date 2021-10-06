@@ -5,12 +5,12 @@
 
 {{/* Returns the configmap env name */}}
 {{- define "ipfs-cluster.configmapEnvName" -}}
-{{ .Release.Name }}
+{{ .Release.Name }}-env
 {{- end }}
 
 {{/* Returns the configmap bootstrap name */}}
 {{- define "ipfs-cluster.configmapBootstrapName" -}}
-{{ .Release.Name }}
+{{ .Release.Name }}-bootstrap
 {{- end }}
 
 {{/* Returns the statefulset name */}}
