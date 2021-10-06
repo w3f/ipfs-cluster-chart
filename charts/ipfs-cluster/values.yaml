@@ -1,0 +1,16 @@
+ipfsImage:
+  repo: ipfs/go-ipfs
+  tag: v0.4.18
+
+ipfsClusterImage:
+  repo: ipfs/ipfs-cluster
+  tag: latest
+
+clusterSecret: secret
+bootstrapPeerPrivateKey: key
+bootstrapPeerId: id
+
+replicaCount: 1
+
+clusterStorage: 5Gi
+ipfsStorage: 200Gi

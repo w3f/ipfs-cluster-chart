@@ -1,0 +1,57 @@
+version: 2
+
+jobs:
+
+  helmLint:
+    docker:
+      - image: web3f/ci-commons:v2.4.6
+    steps:
+      - checkout
+      - run:
+          command: |
+            helm lint ./charts/ipfs-cluster
+
+  integrationTests:
+    docker:
+      - image: web3f/ci-commons:v2.4.6
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.7
+      - run:
+          description: run integration tests
+          command: |
+            /scripts/integration-tests.sh kindest/node:v1.19.11            
+
+  publishChart:
+    docker:
+      - image: web3f/ci-commons:v2.4.6
+    steps:
+      - checkout
+      - run:
+          command: |
+            /scripts/publish-chart.sh
+
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - helmLint:
+          filters:
+            tags:
+              only: /.*/
+      - integrationTests:
+          filters:
+            tags:
+              only: /.*/
+          requires:
+            - helmLint        
+      - publishChart:
+          context: github-bot
+          requires:
+            - buildImage
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/
