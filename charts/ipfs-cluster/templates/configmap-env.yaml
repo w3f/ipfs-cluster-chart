@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: {{ include "ipfs-cluster.configmapEnvName" . }}
 data:
-  bootstrap-peer-id: {{ .Values.bootstrapPeerId | b64enc }}
+  bootstrap-peer-id: {{ .Values.bootstrapPeerId }}
