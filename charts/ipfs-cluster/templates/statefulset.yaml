@@ -91,8 +91,10 @@ spec:
                   key: cluster-secret
             - name: CLUSTER_MONITOR_PING_INTERVAL
               value: "3m"
+            - name: CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS
+              value: "/ip4/0.0.0.0/tcp/9094"  
             - name: SVC_NAME
-              value: $(CLUSTER_SVC_NAME)
+              value: {{ include "ipfs-cluster.serviceName" . }}
           ports:
             - name: api-http
               containerPort: 9094

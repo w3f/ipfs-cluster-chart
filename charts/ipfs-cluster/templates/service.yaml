@@ -2,9 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "ipfs-cluster.serviceName" . }}
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: ipfs.w3f.community
   labels:
     node: {{ .Release.Name }}
 spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
   ports:
   - name: swarm
     targetPort: swarm
@@ -27,5 +31,22 @@ spec:
   - name: cluster-swarm
     targetPort: cluster-swarm
     port: 9096
+  # - name: api
+  #   targetPort: api
+  #   port: 5001  
   selector:
     app: {{ .Release.Name }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ipfs-cluster.serviceNameHttp" . }}
+  labels:
+    node: {{ .Release.Name }}
+spec:
+  ports:
+  - name: api
+    targetPort: api
+    port: 5001
+  selector:
+    app: {{ .Release.Name }}  

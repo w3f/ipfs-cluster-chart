@@ -1,6 +1,7 @@
 environments:
   ci:
   local:
+  production:
 
 repositories:
 - name: w3f

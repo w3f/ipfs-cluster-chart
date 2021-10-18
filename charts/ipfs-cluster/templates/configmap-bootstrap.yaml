@@ -5,7 +5,7 @@ metadata:
 data:
   entrypoint.sh: |
     #!/bin/sh
-    set -e
+    #set -e
     set -x
     user=ipfs
 
@@ -26,7 +26,7 @@ data:
       CLUSTER_PRIVATEKEY=${BOOTSTRAP_PEER_PRIV_KEY} \
       exec ipfs-cluster-service daemon --upgrade
     else
-      BOOTSTRAP_ADDR=/dns4/${SVC_NAME}-0/tcp/9096/ipfs/${BOOTSTRAP_PEER_ID}
+      BOOTSTRAP_ADDR=/dns4/${SVC_NAME}-0.${SVC_NAME}/tcp/9096/ipfs/${BOOTSTRAP_PEER_ID}
 
       if [ -z $BOOTSTRAP_ADDR ]; then
         exit 1
@@ -67,3 +67,6 @@ data:
     ipfs config --json Swarm.ConnMgr.HighWater 2000
     ipfs config --json Datastore.BloomFilterSize 1048576
     ipfs config Datastore.StorageMax 100GB
+    #ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["http://157.245.16.171:5001", "http://localhost:3000", "http://127.0.0.1:5001", "https://webui.ipfs.io"]'
+    ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
+    ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "POST"]'

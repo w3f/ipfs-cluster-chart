@@ -16,7 +16,7 @@ bootstrapPeerPrivateKey: Q0FBU3FRa3dnZ1NsQWdFQUFvSUJBUUNtc2gwYmpENGJ5djNhcTB6VDQ
 #echo "<INSERT_PRIV_KEY_VALUE_HERE>" | base64 -w 0 -
 bootstrapPeerId: QmfBjL2kDjr34JbTLquxJE7d8gNbMuRmLbDuyHPQcebSgV
 
-replicaCount: 1
+replicaCount: 2
 
 persistance:
   enabled: true
