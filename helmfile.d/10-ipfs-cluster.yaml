@@ -9,7 +9,12 @@ repositories:
 
 releases:
 
+# - name: ipfs-cluster
+#   chart: ../charts/ipfs-cluster
+#   values:
+#     - ./config/ipfs-cluster-values.yaml.gotmpl
+
 - name: ipfs-cluster
-  chart: ../charts/ipfs-cluster
+  chart: w3f/ipfs-cluster
   values:
     - ./config/ipfs-cluster-values.yaml.gotmpl
