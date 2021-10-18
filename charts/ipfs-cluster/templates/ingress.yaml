@@ -10,10 +10,10 @@ metadata:
 spec:
   tls:
   - hosts:
-      - ipfs-http.w3f.community
+      - {{ .Values.httpDomain }}
     secretName: {{ .Release.Name }}-tls
   rules:
-  - host: ipfs-http.w3f.community
+  - host: {{ .Values.httpDomain }}
     http:
       paths:
       - path: /(.+)

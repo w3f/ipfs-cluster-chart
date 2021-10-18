@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ include "ipfs-cluster.serviceName" . }}
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: ipfs.w3f.community
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.domain }}
   labels:
     node: {{ .Release.Name }}
 spec:

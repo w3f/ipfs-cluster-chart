@@ -18,6 +18,9 @@ bootstrapPeerId: QmfBjL2kDjr34JbTLquxJE7d8gNbMuRmLbDuyHPQcebSgV
 
 replicaCount: 1
 
+domain: ipfs.w3f.community
+httpDomain: ipfs-http.w3f.community
+
 persistance:
   enabled: true
   clusterStorage: 5Gi
