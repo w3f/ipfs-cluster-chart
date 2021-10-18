@@ -9,12 +9,13 @@ repositories:
 
 releases:
 
-# - name: ipfs-cluster
-#   chart: ../charts/ipfs-cluster
-#   values:
-#     - ./config/ipfs-cluster-values.yaml.gotmpl
-
 - name: ipfs-cluster
+  {{ if eq .Environment.Name "production" }}
   chart: w3f/ipfs-cluster
+  namespace: ipfs
+  version: v0.0.1
+  {{ else }}
+  chart: ../charts/ipfs-cluster
+  {{ end }}
   values:
     - ./config/ipfs-cluster-values.yaml.gotmpl
