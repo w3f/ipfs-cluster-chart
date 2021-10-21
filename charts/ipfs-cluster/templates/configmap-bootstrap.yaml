@@ -67,6 +67,5 @@ data:
     ipfs config --json Swarm.ConnMgr.HighWater 2000
     ipfs config --json Datastore.BloomFilterSize 1048576
     ipfs config Datastore.StorageMax 100GB
-    #ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["http://157.245.16.171:5001", "http://localhost:3000", "http://127.0.0.1:5001", "https://webui.ipfs.io"]'
     ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
     ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "POST"]'

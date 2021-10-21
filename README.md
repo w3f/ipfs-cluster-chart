@@ -2,3 +2,5 @@
 
 # ipfs-cluster-chart
 Helm Chart for: https://cluster.ipfs.io/documentation/guides/k8s/
+
+NOTE: all the secrets are hardcoded and will be replaced
