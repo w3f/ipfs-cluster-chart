@@ -42,7 +42,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "ipfs-cluster.serviceNameHttpLocal" . }}
+  name: {{ include "ipfs-cluster.serviceNameLocal" . }}
   labels:
     node: {{ .Release.Name }}
 spec:
