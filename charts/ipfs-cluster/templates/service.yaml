@@ -9,7 +9,6 @@ metadata:
     node: {{ .Release.Name }}
 spec:
   type: LoadBalancer
-  externalTrafficPolicy: Local
   ports:
   - name: swarm
     targetPort: swarm

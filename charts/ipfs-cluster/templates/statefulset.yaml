@@ -98,7 +98,9 @@ spec:
             - name: CLUSTER_RESTAPI_PRIVATEKEY
               value: "CAESQEmvGJbMboEibpcWCTKOtDYU2eEyyHLN9gDdJli6Z2tksAkhFWNx0Fk3vOlwLIitE2rfGtIj61Ovla/mHC42Plg=" 
             - name: CLUSTER_RESTAPI_BASICAUTHCREDENTIALS
-              value: "w3f:password"        
+              value: "w3f:password"  
+            - name: CLUSTER_CRDT_TRUSTEDPEERS
+              value: "QmfBjL2kDjr34JbTLquxJE7d8gNbMuRmLbDuyHPQcebSgV,12D3KooWMQy63QTigMxb4sX3jva4P52PbdnAaatVjZZta63TDnL3"          
             - name: SVC_NAME
               value: {{ include "ipfs-cluster.serviceName" . }}
           ports:
@@ -128,7 +130,7 @@ spec:
         - name: configure-script
           configMap:
             name: {{ include "ipfs-cluster.configmapBootstrapName" . }}     
-        {{ if ne .Values.persistance.enabled true }}    
+        {{ if ne .Values.persistence.enabled true }}    
         - name: cluster-storage
           emptyDir: {}
         - name: ipfs-storage
@@ -138,17 +140,15 @@ spec:
     - metadata:
         name: cluster-storage
       spec:
-        storageClassName: standard
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: {{ .Values.persistance.clusterStorage }}
+            storage: {{ .Values.persistence.clusterStorage }}
     - metadata:
         name: ipfs-storage
       spec:
-        storageClassName: standard
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: {{ .Values.persistance.ipfsStorage }}
+            storage: {{ .Values.persistence.ipfsStorage }}
         {{ end }}    
