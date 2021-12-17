@@ -5,7 +5,20 @@ image:
   tag: {{ env "CIRCLE_SHA1" | default "kind" }}
 {{ end }}
 
+
+{{- if eq .Environment.Name "production" }}
 persistence:
   enabled: true
 
 replicaCount: 2  
+
+clusterSecret: {{ env "CLUSTER_SECRET" }}
+bootstrapPeerPrivateKey: {{ env "BOOTSTRAP_PEER_PRIVATE_KEY" }}
+bootstrapPeerId: {{ env "BOOTSTRAP_PEER_ID" }}
+
+clusterRestApiId: {{ env "CLUSTER_RESTAPI_ID" }}
+clusterRestApiPrivateKey: {{ env "CLUSTER_RESTAPI_PRIVATEKEY" }}
+clusterRestApiBasicAuth: {{ env "CLUSTER_RESTAPI_BASICAUTHCREDENTIALS" }}
+clusterCRDTtrustedPeers: {{ env "CLUSTER_CRDT_TRUSTEDPEERS" }}
+{{- end }} 
+
