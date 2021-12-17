@@ -94,13 +94,13 @@ spec:
             - name: CLUSTER_RESTAPI_LIBP2PLISTENMULTIADDRESS
               value: "/ip4/0.0.0.0/tcp/9096"  
             - name: CLUSTER_RESTAPI_ID
-              value: "12D3KooWMfXzp2nmNrb7DM4PETYZbaKALnrnwiqnhvrUC66KyYrb" 
+              value: {{ .Values.clusterRestApiId }}
             - name: CLUSTER_RESTAPI_PRIVATEKEY
-              value: "CAESQEmvGJbMboEibpcWCTKOtDYU2eEyyHLN9gDdJli6Z2tksAkhFWNx0Fk3vOlwLIitE2rfGtIj61Ovla/mHC42Plg=" 
+              value: {{ .Values.clusterRestApiPrivateKey }}
             - name: CLUSTER_RESTAPI_BASICAUTHCREDENTIALS
-              value: "w3f:password"  
+              value: {{ .Values.clusterRestApiBasicAuth }}
             - name: CLUSTER_CRDT_TRUSTEDPEERS
-              value: "QmfBjL2kDjr34JbTLquxJE7d8gNbMuRmLbDuyHPQcebSgV,12D3KooWMQy63QTigMxb4sX3jva4P52PbdnAaatVjZZta63TDnL3"          
+              value: {{ .Values.clusterCRDTtrustedPeers }}        
             - name: SVC_NAME
               value: {{ include "ipfs-cluster.serviceName" . }}
           ports:

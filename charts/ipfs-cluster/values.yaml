@@ -16,6 +16,11 @@ bootstrapPeerPrivateKey: Q0FBU3FRa3dnZ1NsQWdFQUFvSUJBUUNtc2gwYmpENGJ5djNhcTB6VDQ
 #echo "<INSERT_PRIV_KEY_VALUE_HERE>" | base64 -w 0 -
 bootstrapPeerId: QmfBjL2kDjr34JbTLquxJE7d8gNbMuRmLbDuyHPQcebSgV
 
+clusterRestApiId: 12D3KooWMfXzp2nmNrb7DM4PETYZbaKALnrnwiqnhvrUC66KyYrb
+clusterRestApiPrivateKey: CAESQEmvGJbMboEibpcWCTKOtDYU2eEyyHLN9gDdJli6Z2tksAkhFWNx0Fk3vOlwLIitE2rfGtIj61Ovla/mHC42Plg=
+clusterRestApiBasicAuth: "w3f:password"
+clusterCRDTtrustedPeers: "QmfBjL2kDjr34JbTLquxJE7d8gNbMuRmLbDuyHPQcebSgV,12D3KooWMQy63QTigMxb4sX3jva4P52PbdnAaatVjZZta63TDnL3"
+
 replicaCount: 1
 
 domain: ipfs.w3f.community
