@@ -1,0 +1,15 @@
+environment: {{ .Environment.Name }}
+
+persistence:
+  enabled: true
+
+replicaCount: 2  
+
+clusterSecret: {{ "ref+vault://op/vaults/k8s-community-secrets/items/ipfs-cluster-secret?proto=http#password" | fetchSecretValue }}
+bootstrapPeerPrivateKey: {{ "ref+vault://op/vaults/k8s-community-secrets/items/ipfs-boostrap-peer-privkey?proto=http#password" | fetchSecretValue }}
+bootstrapPeerId: {{ "ref+vault://op/vaults/k8s-community-secrets/items/ipfs-boostrap-peer-id?proto=http#password" | fetchSecretValue }}
+
+clusterRestApiId: {{ "ref+vault://op/vaults/k8s-community-secrets/items/ipfs-cluster-restapi-id?proto=http#password" | fetchSecretValue }}
+clusterRestApiPrivateKey: {{ "ref+vault://op/vaults/k8s-community-secrets/items/ipfs-cluster-restapi-privkey?proto=http#password" | fetchSecretValue }}
+clusterRestApiBasicAuth: {{ "ref+vault://op/vaults/k8s-community-secrets/items/ipfs-cluster-restapi-basicauth?proto=http#password" | fetchSecretValue }}
+clusterCRDTtrustedPeers: {{ "ref+vault://op/vaults/k8s-community-secrets/items/ipfs-cluster-crdt-peers?proto=http#password" | fetchSecretValue }}

@@ -18,4 +18,4 @@ releases:
   chart: ../charts/ipfs-cluster
   {{ end }}
   values:
-    - ./config/ipfs-cluster-values.yaml.gotmpl
+    - ./config/ipfs-cluster-values-{{ .Environment.Name }}.yaml.gotmpl
