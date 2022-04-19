@@ -13,9 +13,9 @@ releases:
   {{ if eq .Environment.Name "production" }}
   chart: w3f/ipfs-cluster
   namespace: ipfs
-  version: v0.0.6
+  version: v0.0.7
   {{ else }}
   chart: ../charts/ipfs-cluster
   {{ end }}
   values:
-    - ./config/ipfs-cluster-values.yaml.gotmpl
+    - ./config/ipfs-cluster-values-{{ .Environment.Name }}.yaml.gotmpl
