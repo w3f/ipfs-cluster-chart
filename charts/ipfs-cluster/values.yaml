@@ -10,26 +10,38 @@ ipfsClusterImage:
 #https://cluster.ipfs.io/documentation/guides/k8s/
 
 #od  -vN 32 -An -tx1 /dev/urandom | tr -d ' \n'
-clusterSecret: 1ec8276f98cf47c16acfd9bf39fca38f8e3cfcbe229530a7ba9f08ef9757c439
+clusterSecret: "1ec8276f98cf47c16acfd9bf39fca38f8e3cfcbe229530a7ba9f08ef9757c439"
 
 #go get github.com/whyrusleeping/ipfs-key
-#ipfs-key --type Ed25519 | base64
+#ipfs-key --type Ed25519 | base64 -w 0;echo
 bootstrapPeerPrivateKey: CAESQKyMCUbsfSRq8NBOFQOxv9uvgXm1zvSHyThj3AQV6UBHvTJ+TbTrk1Z6639aE6FOSMGbAG+besQOtk5SPsP2Gxo=
 bootstrapPeerId: 12D3KooWNYut1XL31b4KUnCZmC8Mu7WqGn6QdwnptGpS5tnhSttR
 
 clusterRestApiId: 12D3KooWMfXzp2nmNrb7DM4PETYZbaKALnrnwiqnhvrUC66KyYrb
-clusterRestApiPrivateKey: CAESQEmvGJbMboEibpcWCTKOtDYU2eEyyHLN9gDdJli6Z2tksAkhFWNx0Fk3vOlwLIitE2rfGtIj61Ovla/mHC42Plg=
-clusterRestApiBasicAuth: "w3f:password"
+clusterRestApiPrivateKey: "CAESQEmvGJbMboEibpcWCTKOtDYU2eEyyHLN9gDdJli6Z2tksAkhFWNx0Fk3vOlwLIitE2rfGtIj61Ovla/mHC42Plg="
+clusterRestApiBasicAuth: "pld:password"
 
 clusterCRDTtrustedPeers: "12D3KooWNYut1XL31b4KUnCZmC8Mu7WqGn6QdwnptGpS5tnhSttR,12D3KooWNYut1XL31b4KUnCZmC8Mu7WqGn6QdwnptGpS5tnhSttR"
 ##################
 
 replicaCount: 1
 
-domain: ipfs.w3f.community
-httpDomain: ipfs-gateway.w3f.community
+serviceExternalIPs: []
+
+domain: ipfs.pld.community
+httpDomain: ipfs-gateway.pld.community
 
 persistence:
   enabled: true
   clusterStorage: 5Gi
   ipfsStorage: 200Gi
+
+podMonitor:
+  enabled: false
+  monitor:
+    app: kube-prometheus-stack
+    release: prometheus-community
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

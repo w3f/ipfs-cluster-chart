@@ -53,6 +53,11 @@ spec:
             - name: gateway
               protocol: TCP
               containerPort: 8080
+          readinessProbe:
+            tcpSocket:
+              port: gateway
+            initialDelaySeconds: 5
+            periodSeconds: 15
           livenessProbe:
             tcpSocket:
               port: swarm
@@ -64,6 +69,8 @@ spec:
               mountPath: /data/ipfs
             - name: configure-script
               mountPath: /custom
+            - name: health-storage
+              mountPath: /data/health
           resources:
             {}
         - name: ipfs-cluster
@@ -91,18 +98,30 @@ spec:
                   key: cluster-secret
             - name: CLUSTER_MONITOR_PING_INTERVAL
               value: "3m"
+            - name: CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS
+              value: "/ip4/0.0.0.0/tcp/9094"
             - name: CLUSTER_RESTAPI_LIBP2PLISTENMULTIADDRESS
-              value: "/ip4/0.0.0.0/tcp/9096"  
+              value: "/ip4/0.0.0.0/tcp/9098"
             - name: CLUSTER_RESTAPI_ID
               value: {{ .Values.clusterRestApiId }}
             - name: CLUSTER_RESTAPI_PRIVATEKEY
-              value: {{ .Values.clusterRestApiPrivateKey }}
+              value: "{{ .Values.clusterRestApiPrivateKey }}"
             - name: CLUSTER_RESTAPI_BASICAUTHCREDENTIALS
               value: {{ .Values.clusterRestApiBasicAuth }}
+            - name: CLUSTER_MONITORPINGINTERVAL
+              value: {{ .Values.clusterMonitorPingInterval }}
             - name: CLUSTER_CRDT_TRUSTEDPEERS
-              value: {{ .Values.clusterCRDTtrustedPeers }}        
+              value: "{{ .Values.clusterCRDTtrustedPeers }}"
             - name: SVC_NAME
               value: {{ include "ipfs-cluster.serviceName" . }}
+            - name: CLUSTER_METRICS_ENABLESTATS
+              value: "{{ .Values.podMonitor.enabled }}"
+            - name: CLUSTER_METRICS_PROMETHEUSENDPOINT
+              value: "/ip4/0.0.0.0/tcp/8888/"
+            - name: CLUSTER_METRICS_REPORTING_INTERVAL
+              value: "15s"
+            - name: CLUSTER_LEAVEONSHUTDOWN
+              value: "true"
           ports:
             - name: api-http
               containerPort: 9094
@@ -113,6 +132,19 @@ spec:
             - name: cluster-swarm
               containerPort: 9096
               protocol: TCP
+            - name: restapi-swarm
+              containerPort: 9098
+              protocol: TCP
+            - name: metrics
+              containerPort: 8888
+              protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - sh
+              - /custom/peers-health-check.sh
+            initialDelaySeconds: 5
+            periodSeconds: 10
           livenessProbe:
             tcpSocket:
               port: cluster-swarm
@@ -124,18 +156,34 @@ spec:
               mountPath: /data/ipfs-cluster
             - name: configure-script
               mountPath: /custom
+            - name: health-storage
+              mountPath: /data/health
           resources:
             {}    
       volumes:
         - name: configure-script
           configMap:
             name: {{ include "ipfs-cluster.configmapBootstrapName" . }}     
+        - name: health-storage
+          emptyDir: {}
         {{ if ne .Values.persistence.enabled true }}    
         - name: cluster-storage
           emptyDir: {}
         - name: ipfs-storage
           emptyDir: {}  
         {{ else }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
   volumeClaimTemplates:  
     - metadata:
         name: cluster-storage
@@ -151,4 +199,4 @@ spec:
         resources:
           requests:
             storage: {{ .Values.persistence.ipfsStorage }}
-        {{ end }}    
+        {{ end }}
