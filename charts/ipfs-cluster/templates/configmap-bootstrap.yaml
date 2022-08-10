@@ -69,3 +69,23 @@ data:
     ipfs config Datastore.StorageMax 100GB
     ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
     ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "POST"]'
+
+  peers-health-check.sh: |
+    #!/bin/sh
+    #set -e
+    ipfsID=${HOSTNAME##*-}
+    if [ -z "$CLUSTER_RESTAPI_BASICAUTHCREDENTIALS" ];then
+        count=`ipfs-cluster-ctl id|awk -F \| '/peers/{print  $3}'|awk '{print $2}'`
+    else
+        count=`ipfs-cluster-ctl --basic-auth $CLUSTER_RESTAPI_BASICAUTHCREDENTIALS -f id|awk -F \| '/peers/{print  $3}'|awk '{print $2}'`
+    fi
+    
+    if [ -z "$ipfsID" ] || [  -z "$count" ];then
+        echo "ipfsID or count is empty." && echo 1 > /data/health/cluster-peers-check && exit 1
+    fi
+
+    if [ $ipfsID -gt 0 ] && [ $count -eq 0 ];then
+      echo "ipfs cluster $ipfsID, Sees $count other peers" && echo 1 > /data/health/cluster-peers-check && exit 1
+    fi
+
+    echo "ipfs cluster $ipfsID, See $count other peers." && echo 0 > /data/health/cluster-peers-check

@@ -16,9 +16,13 @@ spec:
   - name: swarm-udp
     targetPort: swarm-udp
     port: 4002 
-  - name: cluster-swarm
-    targetPort: cluster-swarm
-    port: 9096 #public with secret protection
+  - name: restapi-swarm
+    targetPort: restapi-swarm
+    port: 9098 #public with secret protection
+  {{- with .Values.serviceExternalIPs }}
+  externalIPs:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   selector:
     app: {{ .Release.Name }}
 ---
@@ -59,4 +63,4 @@ spec:
     targetPort: api-http
     port: 9094    
   selector:
-    app: {{ .Release.Name }}      
+    app: {{ .Release.Name }}

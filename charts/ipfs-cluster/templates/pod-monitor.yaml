@@ -1,0 +1,27 @@
+{{- if $.Values.podMonitor }}
+{{- if and ( .Capabilities.APIVersions.Has "monitoring.coreos.com/v1" ) ( .Values.podMonitor.enabled ) }}
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: {{ .Release.Name }}
+  # Change this to the namespace the Prometheus instance is running in
+  namespace: {{ .Release.Namespace }}
+  labels:
+      app: {{ .Release.Name }}
+      component: ipfs-cluster
+      release: {{ .Values.podMonitor.monitor.release }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  jobLabel: component
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace }}
+  podMetricsEndpoints:
+  - port: metrics
+    scheme: http
+    interval: 30s
+{{- end}}
+{{- end}}
+
