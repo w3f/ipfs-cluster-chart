@@ -1,0 +1,22 @@
+{{ template "chart.header" . }}
+{{ template "chart.description" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
+
+## Installing the Chart
+
+### Add repository
+
+```
+helm repo add paradeum-team https://paradeum-team.github.io/helm-charts/
+```
+
+### Install chart
+
+```
+helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version {{ template "chart.version" . }}
+```
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
