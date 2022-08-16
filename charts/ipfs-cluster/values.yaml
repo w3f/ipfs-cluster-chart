@@ -22,7 +22,9 @@ clusterRestApiPrivateKey: "CAESQEmvGJbMboEibpcWCTKOtDYU2eEyyHLN9gDdJli6Z2tksAkhF
 clusterRestApiBasicAuth: "pld:password"
 
 clusterCRDTtrustedPeers: "12D3KooWNYut1XL31b4KUnCZmC8Mu7WqGn6QdwnptGpS5tnhSttR,12D3KooWNYut1XL31b4KUnCZmC8Mu7WqGn6QdwnptGpS5tnhSttR"
+
 ##################
+clusterMonitorPingInterval: 2s
 
 replicaCount: 1
 
@@ -46,8 +48,8 @@ persistence:
 
 monitor:
   enabled: false
-  app: kube-prometheus-stack
-  release: prometheus-community
+  app: kube-prometheus-stack  # prometheus operator app
+  release: prometheus-community # prometheus operator release
   alert:
     pinsPinErrorThreshold: 10
     pinsPinQueuedThreshold: 10
