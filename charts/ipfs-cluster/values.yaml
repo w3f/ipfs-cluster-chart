@@ -36,12 +36,16 @@ persistence:
   clusterStorage: 5Gi
   ipfsStorage: 200Gi
 
-podMonitor:
+monitor:
   enabled: false
-  monitor:
-    app: kube-prometheus-stack
-    release: prometheus-community
+  app: kube-prometheus-stack
+  release: prometheus-community
+  alert:
+    pinsPinErrorThreshold: 10
+    pinsPinQueuedThreshold: 10
+    pinsPinningThreshold: 10
 
 nodeSelector: {}
 tolerations: []
 affinity: {}
+
