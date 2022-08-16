@@ -28,8 +28,16 @@ replicaCount: 1
 
 serviceExternalIPs: []
 
-domain: ipfs.pld.community
-httpDomain: ipfs-gateway.pld.community
+ingress:
+  className: nginx
+  gateway:
+    enabled: false
+    host: ipfs-gateway.pld.community
+    secretName: pld-community-tls
+  clusterApi:
+    enabled: false
+    host: ipfs-cluster-api.pld.community
+    secretName: pld-community-tls
 
 persistence:
   enabled: true
