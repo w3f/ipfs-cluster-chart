@@ -2,7 +2,7 @@
 
 IPFS Cluster chart
 
-![Version: 0.0.9](https://img.shields.io/badge/Version-0.0.9-informational?style=flat-square)
+![Version: 0.0.11](https://img.shields.io/badge/Version-0.0.11-informational?style=flat-square)
 
 ## Installing the Chart
 
@@ -15,7 +15,7 @@ helm repo add paradeum-team https://paradeum-team.github.io/helm-charts/
 ### Install chart
 
 ```
-helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version 0.0.9
+helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version 0.0.11
 ```
 
 ## Values
@@ -36,13 +36,16 @@ helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version 0.0.9
 | ipfsClusterImage.tag | string | `"1.0.2"` |  |
 | ipfsImage.repo | string | `"ipfs/go-ipfs"` |  |
 | ipfsImage.tag | string | `"v0.13.1"` |  |
+| monitor.alert.pinsPinErrorThreshold | int | `10` |  |
+| monitor.alert.pinsPinQueuedThreshold | int | `10` |  |
+| monitor.alert.pinsPinningThreshold | int | `10` |  |
+| monitor.app | string | `"kube-prometheus-stack"` |  |
+| monitor.enabled | bool | `false` |  |
+| monitor.release | string | `"prometheus-community"` |  |
 | nodeSelector | object | `{}` |  |
 | persistence.clusterStorage | string | `"5Gi"` |  |
 | persistence.enabled | bool | `true` |  |
 | persistence.ipfsStorage | string | `"200Gi"` |  |
-| podMonitor.enabled | bool | `false` |  |
-| podMonitor.monitor.app | string | `"kube-prometheus-stack"` |  |
-| podMonitor.monitor.release | string | `"prometheus-community"` |  |
 | replicaCount | int | `1` |  |
 | serviceExternalIPs | list | `[]` |  |
 | tolerations | list | `[]` |  |
