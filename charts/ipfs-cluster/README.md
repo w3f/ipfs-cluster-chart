@@ -2,7 +2,7 @@
 
 IPFS Cluster chart
 
-![Version: 0.0.11](https://img.shields.io/badge/Version-0.0.11-informational?style=flat-square)
+![Version: 0.0.12](https://img.shields.io/badge/Version-0.0.12-informational?style=flat-square)
 
 ## Installing the Chart
 
@@ -15,7 +15,7 @@ helm repo add paradeum-team https://paradeum-team.github.io/helm-charts/
 ### Install chart
 
 ```
-helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version 0.0.11
+helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version 0.0.12
 ```
 
 ## Values
@@ -30,8 +30,13 @@ helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version 0.0.11
 | clusterRestApiId | string | `"12D3KooWMfXzp2nmNrb7DM4PETYZbaKALnrnwiqnhvrUC66KyYrb"` |  |
 | clusterRestApiPrivateKey | string | `"CAESQEmvGJbMboEibpcWCTKOtDYU2eEyyHLN9gDdJli6Z2tksAkhFWNx0Fk3vOlwLIitE2rfGtIj61Ovla/mHC42Plg="` |  |
 | clusterSecret | string | `"1ec8276f98cf47c16acfd9bf39fca38f8e3cfcbe229530a7ba9f08ef9757c439"` |  |
-| domain | string | `"ipfs.pld.community"` |  |
-| httpDomain | string | `"ipfs-gateway.pld.community"` |  |
+| ingress.className | string | `"nginx"` |  |
+| ingress.clusterApi.enabled | bool | `false` |  |
+| ingress.clusterApi.host | string | `"ipfs-cluster-api.pld.community"` |  |
+| ingress.clusterApi.secretName | string | `"pld-community-tls"` |  |
+| ingress.gateway.enabled | bool | `false` |  |
+| ingress.gateway.host | string | `"ipfs-gateway.pld.community"` |  |
+| ingress.gateway.secretName | string | `"pld-community-tls"` |  |
 | ipfsClusterImage.repo | string | `"ipfs/ipfs-cluster"` |  |
 | ipfsClusterImage.tag | string | `"1.0.2"` |  |
 | ipfsImage.repo | string | `"ipfs/go-ipfs"` |  |
