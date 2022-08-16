@@ -63,4 +63,4 @@ spec:
     targetPort: api-http
     port: 9094    
   selector:
-    app: {{ .Release.Name }}
+    app: {{ .Release.Name }}      

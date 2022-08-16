@@ -114,12 +114,14 @@ spec:
               value: "{{ .Values.clusterCRDTtrustedPeers }}"
             - name: SVC_NAME
               value: {{ include "ipfs-cluster.serviceName" . }}
+            {{- if .Values.monitor.enabled }}
             - name: CLUSTER_METRICS_ENABLESTATS
-              value: "{{ .Values.podMonitor.enabled }}"
+              value: "{{ .Values.monitor.enabled }}"
             - name: CLUSTER_METRICS_PROMETHEUSENDPOINT
               value: "/ip4/0.0.0.0/tcp/8888/"
             - name: CLUSTER_METRICS_REPORTING_INTERVAL
               value: "15s"
+            {{- end }}
             - name: CLUSTER_LEAVEONSHUTDOWN
               value: "true"
           ports:
