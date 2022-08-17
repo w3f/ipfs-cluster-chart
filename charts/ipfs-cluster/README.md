@@ -2,7 +2,7 @@
 
 IPFS Cluster chart
 
-![Version: 0.0.13](https://img.shields.io/badge/Version-0.0.13-informational?style=flat-square)
+![Version: 0.0.15](https://img.shields.io/badge/Version-0.0.15-informational?style=flat-square)
 
 ## Installing the Chart
 
@@ -15,7 +15,7 @@ helm repo add paradeum-team https://paradeum-team.github.io/helm-charts/
 ### Install chart
 
 ```
-helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version 0.0.13
+helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version 0.0.15
 ```
 
 ## Values
