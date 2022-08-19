@@ -15,21 +15,21 @@ spec:
       - alert: IpfsClusterPinsPinError
         annotations:
           message: 'Ipfs cluster pins pin error  (pod {{`{{`}} $labels.pod {{`}}`}}, job {{`{{`}} $labels.job {{`}}`}}) > {{ .Values.monitor.alert.pinsPinErrorThreshold }}, VALUE = {{`{{`}} $value {{`}}`}}'
-        expr: max by(job, pod)(ipfscluster_pins_pin_error) > {{ .Values.monitor.alert.pinsPinErrorThreshold }}
+        expr: max by(job, pod)(ipfscluster_pins_pin_error{job="{{ .Release.Namespace }}/{{ .Release.Name }}"}) > {{ .Values.monitor.alert.pinsPinErrorThreshold }}
         for: 5m
         labels:
           severity: warning
       - alert: IpfsClusterPinsPinQueuedTooLarge
         annotations:
           message: 'Ipfs cluster pins pin queued  (pod {{`{{`}} $labels.pod {{`}}`}}, job {{`{{`}} $labels.job {{`}}`}}) > {{ .Values.monitor.alert.pinsPinQueuedThreshold }}, VALUE = {{`{{`}} $value {{`}}`}}'
-        expr: max by(job, pod)(ipfscluster_pins_pin_queued) > {{ .Values.monitor.alert.pinsPinQueuedThreshold }}
+        expr: max by(job, pod)(ipfscluster_pins_pin_queued{job="{{ .Release.Namespace }}/{{ .Release.Name }}"}) > {{ .Values.monitor.alert.pinsPinQueuedThreshold }}
         for: 5m
         labels:
           severity: warning
       - alert: IpfsClusterPinsPinningTooLarge
         annotations:
           message: 'Ipfs cluster pins pin queued  (pod {{`{{`}} $labels.pod {{`}}`}}, job {{`{{`}} $labels.job {{`}}`}}) > {{ .Values.monitor.alert.pinsPinningThreshold }}, VALUE = {{`{{`}} $value {{`}}`}}'
-        expr: max by(job, instance)(ipfscluster_pins_pinning) > {{ .Values.monitor.alert.pinsPinningThreshold }}
+        expr: max by(job, pod)(ipfscluster_pins_pinning{job="{{ .Release.Namespace }}/{{ .Release.Name }}"}) > {{ .Values.monitor.alert.pinsPinningThreshold }}
         for: 5m
         labels:
           severity: warning
