@@ -40,6 +40,7 @@ ingress:
     enabled: false
     host: ipfs-cluster-api.pld.community
     secretName: pld-community-tls
+    proxyBodySize: 1024M
 
 persistence:
   enabled: true
