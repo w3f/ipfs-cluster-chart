@@ -2,7 +2,7 @@
 
 IPFS Cluster chart
 
-![Version: 0.0.15](https://img.shields.io/badge/Version-0.0.15-informational?style=flat-square)
+![Version: 0.0.17](https://img.shields.io/badge/Version-0.0.17-informational?style=flat-square)
 
 ## Installing the Chart
 
@@ -15,7 +15,7 @@ helm repo add paradeum-team https://paradeum-team.github.io/helm-charts/
 ### Install chart
 
 ```
-helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version 0.0.15
+helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version 0.0.17
 ```
 
 ## Values
@@ -34,6 +34,7 @@ helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version 0.0.15
 | ingress.className | string | `"nginx"` |  |
 | ingress.clusterApi.enabled | bool | `false` |  |
 | ingress.clusterApi.host | string | `"ipfs-cluster-api.pld.community"` |  |
+| ingress.clusterApi.proxyBodySize | string | `"1024M"` |  |
 | ingress.clusterApi.secretName | string | `"pld-community-tls"` |  |
 | ingress.gateway.enabled | bool | `false` |  |
 | ingress.gateway.host | string | `"ipfs-gateway.pld.community"` |  |
