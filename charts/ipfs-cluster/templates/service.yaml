@@ -14,9 +14,12 @@ spec:
   - name: swarm-udp
     targetPort: swarm-udp
     port: 4002 
+  - name: cluster-swarm
+    targetPort: cluster-swarm
+    port: 9096 # ipfs cluster bootstrap port
   - name: restapi-swarm
     targetPort: restapi-swarm
-    port: 9098 #public with secret protection
+    port: 9098 # client add peer port
   {{- with .Values.serviceExternalIPs }}
   externalIPs:
     {{- toYaml . | nindent 4 }}
