@@ -90,6 +90,10 @@ spec:
                 secretKeyRef:
                   name: {{ include "ipfs-cluster.secretName" . }}
                   key: cluster-secret
+            - name: CLUSTER_REPLICATIONFACTORMIN
+              value: "{{ .Values.clusterReplicationFactorMin }}"
+            - name: CLUSTER_REPLICATIONFACTORMAX
+              value: "{{ .Values.clusterReplicationFactorMax }}"
             - name: CLUSTER_MONITOR_PING_INTERVAL
               value: "3m"
             - name: CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS

@@ -25,6 +25,8 @@ clusterCRDTtrustedPeers: "12D3KooWNYut1XL31b4KUnCZmC8Mu7WqGn6QdwnptGpS5tnhSttR,1
 
 ##################
 clusterMonitorPingInterval: 2s
+clusterReplicationFactorMin: -1
+clusterReplicationFactorMax: -1
 
 replicaCount: 1
 
