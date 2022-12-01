@@ -32,6 +32,11 @@ replicaCount: 1
 
 serviceExternalIPs: []
 
+tracing:
+  enabled: false
+  jaegerAgentEndpoint: "/ip4/0.0.0.0/udp/6831"
+  samplingProb: "0.3"
+
 ingress:
   className: nginx
   gateway:

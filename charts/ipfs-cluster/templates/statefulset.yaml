@@ -122,6 +122,16 @@ spec:
             {{- end }}
             - name: CLUSTER_LEAVEONSHUTDOWN
               value: "true"
+            {{- if .Values.tracing.enabled  }}
+            - name: CLUSTER_TRACING_ENABLETRACING
+              value: "{{ .Values.tracing.enabled }}"
+            - name: CLUSTER_TRACING_JAEGERAGENTENDPOINT
+              value: "{{ .Values.tracing.jaegerAgentEndpoint }}"
+            - name: CLUSTER_TRACING_SAMPLINGPROB
+              value: "{{ .Values.tracing.samplingProb }}"
+            - name: CLUSTER_TRACING_SERVICENAME
+              value: "{{ .Release.Name }}"
+            {{- end }}
           ports:
             - name: api-http
               containerPort: 9094
