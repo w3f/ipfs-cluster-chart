@@ -1,8 +1,8 @@
 ipfs:
   datastoreStorageMax: 100GB
 ipfsImage:
-  repo: ipfs/go-ipfs
-  tag: v0.13.1
+  repo: ipfs/kubo
+  tag: v0.18.1
 ipfsClusterImage:
   repo: ipfs/ipfs-cluster
   tag: 1.0.6
