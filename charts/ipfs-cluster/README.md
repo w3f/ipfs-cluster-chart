@@ -1,8 +1,8 @@
 # ipfs-cluster
 
-IPFS Cluster chart
+IPFS Cluster Chart
 
-![Version: 0.0.19](https://img.shields.io/badge/Version-0.0.19-informational?style=flat-square)
+![Version: 0.0.20](https://img.shields.io/badge/Version-0.0.20-informational?style=flat-square)
 
 ## Installing the Chart
 
@@ -15,7 +15,7 @@ helm repo add paradeum-team https://paradeum-team.github.io/helm-charts/
 ### Install chart
 
 ```
-helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version 0.0.19
+helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version 0.0.20
 ```
 
 ## Values
@@ -33,6 +33,7 @@ helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version 0.0.19
 | clusterRestApiId | string | `"12D3KooWMfXzp2nmNrb7DM4PETYZbaKALnrnwiqnhvrUC66KyYrb"` |  |
 | clusterRestApiPrivateKey | string | `"CAESQEmvGJbMboEibpcWCTKOtDYU2eEyyHLN9gDdJli6Z2tksAkhFWNx0Fk3vOlwLIitE2rfGtIj61Ovla/mHC42Plg="` |  |
 | clusterSecret | string | `"1ec8276f98cf47c16acfd9bf39fca38f8e3cfcbe229530a7ba9f08ef9757c439"` |  |
+| imagePullSecrets | list | `[]` |  |
 | ingress.className | string | `"nginx"` |  |
 | ingress.clusterApi.enabled | bool | `false` |  |
 | ingress.clusterApi.host | string | `"ipfs-cluster-api.pld.community"` |  |
@@ -41,8 +42,9 @@ helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version 0.0.19
 | ingress.gateway.enabled | bool | `false` |  |
 | ingress.gateway.host | string | `"ipfs-gateway.pld.community"` |  |
 | ingress.gateway.secretName | string | `"pld-community-tls"` |  |
+| ipfs.datastoreStorageMax | string | `"100GB"` |  |
 | ipfsClusterImage.repo | string | `"ipfs/ipfs-cluster"` |  |
-| ipfsClusterImage.tag | string | `"1.0.2"` |  |
+| ipfsClusterImage.tag | string | `"1.0.6"` |  |
 | ipfsImage.repo | string | `"ipfs/go-ipfs"` |  |
 | ipfsImage.tag | string | `"v0.13.1"` |  |
 | monitor.alert.pinsPinErrorThreshold | int | `10` |  |
@@ -58,3 +60,6 @@ helm install my-ipfs-cluster paradeum-team/ipfs-cluster --version 0.0.19
 | replicaCount | int | `1` |  |
 | serviceExternalIPs | list | `[]` |  |
 | tolerations | list | `[]` |  |
+| tracing.enabled | bool | `false` |  |
+| tracing.jaegerAgentEndpoint | string | `""` |  |
+| tracing.samplingProb | string | `"0.3"` |  |

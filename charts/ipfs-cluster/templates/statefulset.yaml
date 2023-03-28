@@ -21,9 +21,16 @@ spec:
         checksum/config-bootstrap: {{ include (print $.Template.BasePath "/configmap-bootstrap.yaml") . | sha256sum }}  
         checksum/config-env: {{ include (print $.Template.BasePath "/configmap-env.yaml") . | sha256sum }}  
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       initContainers:
         - name: configure-ipfs
           image: {{ .Values.ipfsImage.repo }}:{{ .Values.ipfsImage.tag }}
+          env:
+            - name: IPFS_DATASTORE_STORAGEMAX
+              value: "{{ .Values.ipfs.datastoreStorageMax }}"
           command: ["sh", "/custom/configure-ipfs.sh"]
           volumeMounts:
             - name: ipfs-storage
@@ -75,6 +82,10 @@ spec:
             - configMapRef:
                 name: {{ include "ipfs-cluster.configmapEnvName" . }}
           env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
             - name: BOOTSTRAP_PEER_ID
               valueFrom:
                 configMapKeyRef:
@@ -125,7 +136,8 @@ spec:
             {{- if .Values.tracing.enabled  }}
             - name: CLUSTER_TRACING_ENABLETRACING
               value: "{{ .Values.tracing.enabled }}"
-            - name: CLUSTER_TRACING_JAEGERAGENTENDPOINT
+            # It should be CLUSTER_TRACING_JAEGERAGENTENDPOINT case of initialization errors, change it to CLUSTER_TRACING_JAEGERAGENT_ENDPOINT
+            - name: CLUSTER_TRACING_JAEGERAGENT_ENDPOINT
               value: "{{ .Values.tracing.jaegerAgentEndpoint }}"
             - name: CLUSTER_TRACING_SAMPLINGPROB
               value: "{{ .Values.tracing.samplingProb }}"

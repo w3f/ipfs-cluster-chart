@@ -1,42 +1,35 @@
+ipfs:
+  datastoreStorageMax: 100GB
 ipfsImage:
   repo: ipfs/go-ipfs
   tag: v0.13.1
-
 ipfsClusterImage:
   repo: ipfs/ipfs-cluster
-  tag: 1.0.2
-
+  tag: 1.0.6
 #### secretes examples #####
 #https://cluster.ipfs.io/documentation/guides/k8s/
 
 #od  -vN 32 -An -tx1 /dev/urandom | tr -d ' \n'
 clusterSecret: "1ec8276f98cf47c16acfd9bf39fca38f8e3cfcbe229530a7ba9f08ef9757c439"
-
 #go get github.com/whyrusleeping/ipfs-key
 #ipfs-key --type Ed25519 | base64 -w 0;echo
 bootstrapPeerPrivateKey: CAESQKyMCUbsfSRq8NBOFQOxv9uvgXm1zvSHyThj3AQV6UBHvTJ+TbTrk1Z6639aE6FOSMGbAG+besQOtk5SPsP2Gxo=
 bootstrapPeerId: 12D3KooWNYut1XL31b4KUnCZmC8Mu7WqGn6QdwnptGpS5tnhSttR
-
 clusterRestApiId: 12D3KooWMfXzp2nmNrb7DM4PETYZbaKALnrnwiqnhvrUC66KyYrb
 clusterRestApiPrivateKey: "CAESQEmvGJbMboEibpcWCTKOtDYU2eEyyHLN9gDdJli6Z2tksAkhFWNx0Fk3vOlwLIitE2rfGtIj61Ovla/mHC42Plg="
 clusterRestApiBasicAuth: "pld:password"
-
 clusterCRDTtrustedPeers: "12D3KooWNYut1XL31b4KUnCZmC8Mu7WqGn6QdwnptGpS5tnhSttR,12D3KooWNYut1XL31b4KUnCZmC8Mu7WqGn6QdwnptGpS5tnhSttR"
-
 ##################
 clusterMonitorPingInterval: 2s
 clusterReplicationFactorMin: -1
 clusterReplicationFactorMax: -1
-
 replicaCount: 1
-
 serviceExternalIPs: []
-
 tracing:
   enabled: false
-  jaegerAgentEndpoint: "/ip4/0.0.0.0/udp/6831"
   samplingProb: "0.3"
-
+  # default /ip4/<hostIP>/udp/6831
+  jaegerAgentEndpoint: ""
 ingress:
   className: nginx
   gateway:
@@ -48,22 +41,19 @@ ingress:
     host: ipfs-cluster-api.pld.community
     secretName: pld-community-tls
     proxyBodySize: 1024M
-
 persistence:
   enabled: true
   clusterStorage: 5Gi
   ipfsStorage: 200Gi
-
 monitor:
   enabled: false
-  app: kube-prometheus-stack  # prometheus operator app
+  app: kube-prometheus-stack # prometheus operator app
   release: prometheus-community # prometheus operator release
   alert:
     pinsPinErrorThreshold: 10
     pinsPinQueuedThreshold: 10
     pinsPinningThreshold: 10
-
+imagePullSecrets: []
 nodeSelector: {}
 tolerations: []
 affinity: {}
-

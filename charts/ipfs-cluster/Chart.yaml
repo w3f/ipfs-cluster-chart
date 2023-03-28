@@ -1,7 +1,7 @@
-apiVersion: 1.0.2
-description: IPFS Cluster chart
+apiVersion: 1.0.6
+description: IPFS Cluster Chart
 name: ipfs-cluster
-version: 0.0.19
+version: 0.0.20
 home: https://ipfscluster.io/
 keywords:
   - ipfs

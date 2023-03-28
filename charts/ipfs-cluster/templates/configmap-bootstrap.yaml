@@ -20,7 +20,14 @@ data:
 
     PEER_HOSTNAME=`cat /proc/sys/kernel/hostname`
 
-    grep -q ".*ipfs-cluster-0.*" /proc/sys/kernel/hostname
+    if [ "$CLUSTER_TRACING_JAEGERAGENT_ENDPOINT" == "" ]; then
+      export CLUSTER_TRACING_JAEGERAGENTENDPOINT="/ip4/$NODE_IP/udp/6831"
+    else
+      export CLUSTER_TRACING_JAEGERAGENTENDPOINT="$CLUSTER_TRACING_JAEGERAGENT_ENDPOINT"
+    fi
+    
+
+    grep -q ".*ipfs-cluster.*-0.*" /proc/sys/kernel/hostname
     if [ $? -eq 0 ]; then
       CLUSTER_ID=${BOOTSTRAP_PEER_ID} \
       CLUSTER_PRIVATEKEY=${BOOTSTRAP_PEER_PRIV_KEY} \
@@ -58,15 +65,19 @@ data:
       if [ -f /data/ipfs/repo.lock ]; then
         rm /data/ipfs/repo.lock
       fi
+      ipfs config Datastore.StorageMax $IPFS_DATASTORE_STORAGEMAX
       exit 0
     fi
 
     ipfs init --profile=badgerds,server
     ipfs config Addresses.API /ip4/0.0.0.0/tcp/5001
+    ipfs config --json Addresses.Swarm '["/ip4/0.0.0.0/tcp/4001","/ip4/0.0.0.0/udp/4001/quic"]'
+    ipfs config --json Addresses.NoAnnounce '["/ip4/100.64.0.0/ipcidr/10","/ip4/169.254.0.0/ipcidr/16","/ip4/172.16.0.0/ipcidr/12","/ip4/192.0.0.0/ipcidr/24","/ip4/192.0.2.0/ipcidr/24","/ip4/192.168.0.0/ipcidr/16","/ip4/198.18.0.0/ipcidr/15","/ip4/198.51.100.0/ipcidr/24","/ip4/203.0.113.0/ipcidr/24","/ip4/240.0.0.0/ipcidr/4","/ip6/100::/ipcidr/64","/ip6/2001:2::/ipcidr/48","/ip6/2001:db8::/ipcidr/32","/ip6/fc00::/ipcidr/7","/ip6/fe80::/ipcidr/10"]'
+    ipfs config --json Swarm.AddrFilters '["/ip4/100.64.0.0/ipcidr/10","/ip4/169.254.0.0/ipcidr/16","/ip4/172.16.0.0/ipcidr/12","/ip4/192.0.0.0/ipcidr/24","/ip4/192.0.2.0/ipcidr/24","/ip4/192.168.0.0/ipcidr/16","/ip4/198.18.0.0/ipcidr/15","/ip4/198.51.100.0/ipcidr/24","/ip4/203.0.113.0/ipcidr/24","/ip4/240.0.0.0/ipcidr/4","/ip6/100::/ipcidr/64","/ip6/2001:2::/ipcidr/48","/ip6/2001:db8::/ipcidr/32","/ip6/fc00::/ipcidr/7","/ip6/fe80::/ipcidr/10"]'
     ipfs config Addresses.Gateway /ip4/0.0.0.0/tcp/8080
     ipfs config --json Swarm.ConnMgr.HighWater 2000
     ipfs config --json Datastore.BloomFilterSize 1048576
-    ipfs config Datastore.StorageMax 100GB
+    ipfs config Datastore.StorageMax $IPFS_DATASTORE_STORAGEMAX
     ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
     ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "POST"]'
 
