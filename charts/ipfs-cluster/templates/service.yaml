@@ -6,7 +6,7 @@ metadata:
   labels:
     node: {{ .Release.Name }}
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
   - name: swarm
     targetPort: swarm
