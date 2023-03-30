@@ -116,7 +116,10 @@ spec:
             - name: CLUSTER_RESTAPI_PRIVATEKEY
               value: "{{ .Values.clusterRestApiPrivateKey }}"
             - name: CLUSTER_RESTAPI_BASICAUTHCREDENTIALS
-              value: {{ .Values.clusterRestApiBasicAuth }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "ipfs-cluster.secretName" . }}
+                  key: cluster-restapi-basicauth
             - name: CLUSTER_MONITORPINGINTERVAL
               value: {{ .Values.clusterMonitorPingInterval }}
             - name: CLUSTER_CRDT_TRUSTEDPEERS
