@@ -4,7 +4,7 @@ jobs:
 
   helmLint:
     docker:
-      - image: web3f/ci-commons:v3.1.6
+      - image: web3f/ci-commons:v3.2.3
     steps:
       - checkout
       - run:
@@ -13,7 +13,7 @@ jobs:
 
   integrationTests:
     docker:
-      - image: web3f/ci-commons:v3.1.6
+      - image: web3f/ci-commons:v3.2.3
     steps:
       - checkout
       - setup_remote_docker:
@@ -25,7 +25,7 @@ jobs:
 
   publishChart:
     docker:
-      - image: web3f/ci-commons:v3.1.6
+      - image: web3f/ci-commons:v3.2.3
     steps:
       - checkout
       - run:
@@ -36,7 +36,7 @@ jobs:
     environment:
       HELM_ENV: production
     docker:
-      - image: web3f/ci-commons:v3.1.6
+      - image: web3f/ci-commons:v3.2.3
     steps:
       - checkout
       - setup_remote_docker
